@@ -10,9 +10,9 @@ function getStatus(date) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const renewalDate = new Date(date + "T00:00:00");
+    const renewal = new Date(date + "T00:00:00");
 
-    if (renewalDate < today) {
+    if (renewal < today) {
         return "Expired";
     } else {
         return "Active";
@@ -41,11 +41,14 @@ function displaySubscriptions() {
     subscriptionList.innerHTML = "";
 
     if (subscriptions.length === 0) {
-        subscriptionList.innerHTML = `
-            <tr>
-                <td colspan="7">No subscriptions yet.</td>
-            </tr>
-        `;
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+
+        cell.colSpan = 7;
+        cell.textContent = "No subscriptions added yet.";
+
+        row.appendChild(cell);
+        subscriptionList.appendChild(row);
     }
 
     for (let i = 0; i < subscriptions.length; i++) {
@@ -54,42 +57,50 @@ function displaySubscriptions() {
 
         const row = document.createElement("tr");
 
-        row.innerHTML = `
-            <td>${escapeHTML(item.service)}</td>
-            <td>${escapeHTML(item.provider)}</td>
-            <td>${escapeHTML(item.subscriber)}</td>
-            <td>${item.renewalDate}</td>
-            <td>${escapeHTML(item.category)}</td>
-            <td>
-                <span class="status ${status.toLowerCase()}">
-                    ${status}
-                </span>
-            </td>
-            <td>
-                <button class="delete-button" data-index="${i}">
-                    Delete
-                </button>
-            </td>
-        `;
+        const serviceCell = document.createElement("td");
+        serviceCell.textContent = item.service;
+
+        const providerCell = document.createElement("td");
+        providerCell.textContent = item.provider;
+
+        const subscriberCell = document.createElement("td");
+        subscriberCell.textContent = item.subscriber;
+
+        const dateCell = document.createElement("td");
+        dateCell.textContent = item.renewalDate;
+
+        const categoryCell = document.createElement("td");
+        categoryCell.textContent = item.category;
+
+        const statusCell = document.createElement("td");
+        const statusLabel = document.createElement("span");
+
+        statusLabel.textContent = status;
+        statusLabel.className = "status " + status.toLowerCase();
+
+        statusCell.appendChild(statusLabel);
+
+        const actionCell = document.createElement("td");
+        const deleteButton = document.createElement("button");
+
+        deleteButton.textContent = "Delete";
+        deleteButton.className = "delete-button";
+        deleteButton.dataset.index = i;
+
+        actionCell.appendChild(deleteButton);
+
+        row.appendChild(serviceCell);
+        row.appendChild(providerCell);
+        row.appendChild(subscriberCell);
+        row.appendChild(dateCell);
+        row.appendChild(categoryCell);
+        row.appendChild(statusCell);
+        row.appendChild(actionCell);
 
         subscriptionList.appendChild(row);
     }
 
     updateSummary();
-}
-
-function escapeHTML(value) {
-    return String(value).replace(/[&<>"']/g, function(character) {
-        const symbols = {
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#039;"
-        };
-
-        return symbols[character];
-    });
 }
 
 form.addEventListener("submit", function(event) {
@@ -102,6 +113,13 @@ form.addEventListener("submit", function(event) {
         renewalDate: document.getElementById("renewalDate").value,
         category: document.getElementById("category").value
     };
+
+    if (!newSubscription.service || !newSubscription.provider ||
+        !newSubscription.subscriber || !newSubscription.renewalDate ||
+        !newSubscription.category) {
+        alert("Please complete all fields.");
+        return;
+    }
 
     subscriptions.push(newSubscription);
 
