@@ -4,42 +4,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subscription Tracker - Home</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="app.js" defer></script>
+    <title>Subscription Tracker</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/app.js" defer></script>
 </head>
 <body>
+
     <header>
         <h1>Subscription Tracker</h1>
         <nav>
             <a href="index.html">Home</a>
-            <a href="add.html">Add</a>
+            <a href="add.html">Add Subscription</a>
             <a href="expenses.html">Expenses</a>
         </nav>
     </header>
 
     <main>
-        <section class="welcome">
-            <h2>Welcome to Subscription Tracker</h2>
-            <p>Manage your subscriptions and keep track of your expenses.</p>
-            <a class="main-button" href="add.html">Add Subscription</a>
-            <a class="main-button" href="expenses.html">View Expenses</a>
-        </section>
+        <h2>Dashboard</h2>
+        <p>Manage all your subscriptions in one place.</p>
 
         <section class="summary">
-            <div class="summary-card">
+            <div class="card">
                 <h3>Total Subscriptions</h3>
                 <p id="totalCount">0</p>
             </div>
-            <div class="summary-card">
+
+            <div class="card">
                 <h3>Expired Subscriptions</h3>
                 <p id="expiredCount">0</p>
             </div>
         </section>
+
+        <section>
+            <h2>Quick Actions</h2>
+            <a class="btn" href="add.html">Add New Subscription</a>
+            <a class="btn" href="expenses.html">View Expenses</a>
+        </section>
     </main>
 
-    <footer>
-        <p>Subscription Tracker - 2026</p>
-    </footer>
 </body>
 </html>
