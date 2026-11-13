@@ -1,0 +1,171 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f5fa;
+    color: #263248;
+}
+
+header {
+    background: #243b63;
+    color: white;
+    padding: 30px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin-bottom: 5px;
+}
+
+header p {
+    color: #d9e2f2;
+}
+
+main {
+    width: 86%;
+    margin: 35px auto;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+section h2 {
+    margin-bottom: 18px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.card, .form-section, .table-section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #00000010;
+}
+
+.card p {
+    color: #68758b;
+}
+
+.card h2 {
+    color: #315b96;
+    margin-top: 10px;
+    font-size: 30px;
+}
+
+.expired-card h2 {
+    color: #d64b55;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+input, select {
+    padding: 12px;
+    border: 1px solid #d7dce6;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+button {
+    padding: 12px 20px;
+    background: #315b96;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #243b63;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    padding: 14px;
+    text-align: left;
+    border-bottom: 1px solid #eeeeee;
+}
+
+th {
+    background: #f4f6fa;
+    color: #53627a;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.active {
+    background: #e4f6ed;
+    color: #18794e;
+}
+
+.expired {
+    background: #fde9eb;
+    color: #b42332;
+}
+
+.delete-button {
+    background: #fde9eb;
+    color: #b42332;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #8992a3;
+}
+
+@media (max-width: 700px) {
+    main {
+        width: 94%;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .table-section {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 750px;
+    }
+}
