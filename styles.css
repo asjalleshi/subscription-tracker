@@ -7,65 +7,98 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f3f5fa;
-    color: #263248;
+    background-color: #f4f6f9;
+    color: #333;
 }
 
 header {
-    background: #243b63;
+    background-color: #2c3e50;
     color: white;
-    padding: 30px 7%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 25px 8%;
 }
 
 header h1 {
-    margin-bottom: 5px;
+    margin-bottom: 20px;
 }
 
-header p {
-    color: #d9e2f2;
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+nav a:hover {
+    background-color: #4A6FA5;
 }
 
 main {
-    width: 86%;
-    margin: 35px auto;
+    width: 85%;
+    margin: 30px auto;
 }
 
-section {
-    margin-bottom: 30px;
+.welcome,
+.summary-card,
+.form-section,
+.list-section {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-section h2 {
-    margin-bottom: 18px;
+.welcome h2,
+.form-section h2,
+.list-section h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
 }
 
-.cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.welcome p {
+    margin-bottom: 20px;
+}
+
+.main-button {
+    display: inline-block;
+    background-color: #4A6FA5;
+    color: white;
+    text-decoration: none;
+    padding: 12px 18px;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.main-button:hover,
+button:hover {
+    background-color: #2c3e50;
+}
+
+.summary {
+    display: flex;
     gap: 20px;
 }
 
-.card, .form-section, .table-section {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 3px 12px #00000010;
+.summary-card {
+    flex: 1;
 }
 
-.card p {
-    color: #68758b;
+.summary-card h3 {
+    color: #2c3e50;
+    margin-bottom: 12px;
 }
 
-.card h2 {
-    color: #315b96;
-    margin-top: 10px;
-    font-size: 30px;
-}
-
-.expired-card h2 {
-    color: #d64b55;
+.summary-card p {
+    font-size: 28px;
+    font-weight: bold;
+    color: #4A6FA5;
 }
 
 form {
@@ -76,96 +109,91 @@ form {
 
 label {
     font-weight: bold;
-    margin-top: 5px;
+    margin-top: 8px;
 }
 
-input, select {
+input,
+select {
     padding: 12px;
-    border: 1px solid #d7dce6;
-    border-radius: 6px;
-    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+    width: 100%;
 }
 
 button {
-    padding: 12px 20px;
-    background: #315b96;
+    background-color: #4A6FA5;
     color: white;
     border: none;
-    border-radius: 6px;
+    padding: 12px;
+    border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
-    margin-top: 10px;
+    font-size: 15px;
+    margin-top: 12px;
 }
 
-button:hover {
-    background: #243b63;
+.table-container {
+    overflow-x: auto;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    background: white;
+    min-width: 700px;
 }
 
-th, td {
-    padding: 14px;
+th,
+td {
+    padding: 13px;
     text-align: left;
-    border-bottom: 1px solid #eeeeee;
+    border-bottom: 1px solid #ddd;
 }
 
 th {
-    background: #f4f6fa;
-    color: #53627a;
+    background-color: #2c3e50;
+    color: white;
 }
 
-.status {
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 12px;
-    font-weight: bold;
+tr:hover {
+    background-color: #f5f5f5;
 }
 
 .active {
-    background: #e4f6ed;
-    color: #18794e;
+    color: green;
+    font-weight: bold;
 }
 
 .expired {
-    background: #fde9eb;
-    color: #b42332;
+    color: red;
+    font-weight: bold;
 }
 
-.delete-button {
-    background: #fde9eb;
-    color: #b42332;
+.delete-btn {
+    background-color: #d9534f;
+    padding: 8px 12px;
+    margin: 0;
 }
 
 footer {
     text-align: center;
-    padding: 25px;
-    color: #8992a3;
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    margin-top: 40px;
 }
 
 @media (max-width: 700px) {
     main {
-        width: 94%;
+        width: 92%;
     }
 
-    .cards {
-        grid-template-columns: 1fr;
+    .summary {
+        flex-direction: column;
     }
 
     header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-
-    .table-section {
-        overflow-x: auto;
-    }
-
-    table {
-        min-width: 750px;
+        padding: 20px;
     }
 }
+
+
