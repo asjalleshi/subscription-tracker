@@ -1,9 +1,4 @@
 
-const form = document.getElementById("subscriptionForm");
-const subscriptionList = document.getElementById("subscriptionList");
-const totalCount = document.getElementById("totalCount");
-const expiredCount = document.getElementById("expiredCount");
-
 let subscriptions = JSON.parse(localStorage.getItem("subscriptions")) || [];
 
 function getStatus(date) {
@@ -24,120 +19,114 @@ function saveSubscriptions() {
 }
 
 function updateSummary() {
-    totalCount.textContent = subscriptions.length;
+    const totalCount = document.getElementById("totalCount");
+    const expiredCount = document.getElementById("expiredCount");
 
-    let expired = 0;
+    if (totalCount && expiredCount) {
+        totalCount.textContent = subscriptions.length;
 
-    for (let i = 0; i < subscriptions.length; i++) {
-        if (getStatus(subscriptions[i].renewalDate) === "Expired") {
-            expired++;
+        let expired = 0;
+
+        for (let i = 0; i < subscriptions.length; i++) {
+            if (getStatus(subscriptions[i].renewalDate) === "Expired") {
+                expired++;
+            }
         }
-    }
 
-    expiredCount.textContent = expired;
+        expiredCount.textContent = expired;
+    }
 }
 
 function displaySubscriptions() {
-    subscriptionList.innerHTML = "";
+    const subscriptionList = document.getElementById("subscriptionList");
 
-    if (subscriptions.length === 0) {
-        const row = document.createElement("tr");
-        const cell = document.createElement("td");
-
-        cell.colSpan = 7;
-        cell.textContent = "No subscriptions added yet.";
-
-        row.appendChild(cell);
-        subscriptionList.appendChild(row);
+    if (!subscriptionList) {
+        return;
     }
 
+    subscriptionList.innerHTML = "";
+
     for (let i = 0; i < subscriptions.length; i++) {
-        const item = subscriptions[i];
-        const status = getStatus(item.renewalDate);
+        const subscription = subscriptions[i];
+        const status = getStatus(subscription.renewalDate);
 
         const row = document.createElement("tr");
 
-        const serviceCell = document.createElement("td");
-        serviceCell.textContent = item.service;
+        const values = [
+            subscription.service,
+            subscription.provider,
+            subscription.subscriber,
+            subscription.renewalDate,
+            subscription.category
+        ];
 
-        const providerCell = document.createElement("td");
-        providerCell.textContent = item.provider;
-
-        const subscriberCell = document.createElement("td");
-        subscriberCell.textContent = item.subscriber;
-
-        const dateCell = document.createElement("td");
-        dateCell.textContent = item.renewalDate;
-
-        const categoryCell = document.createElement("td");
-        categoryCell.textContent = item.category;
+        for (let j = 0; j < values.length; j++) {
+            const cell = document.createElement("td");
+            cell.textContent = values[j];
+            row.appendChild(cell);
+        }
 
         const statusCell = document.createElement("td");
-        const statusLabel = document.createElement("span");
-
-        statusLabel.textContent = status;
-        statusLabel.className = "status " + status.toLowerCase();
-
-        statusCell.appendChild(statusLabel);
+        statusCell.textContent = status;
+        statusCell.className = status.toLowerCase();
+        row.appendChild(statusCell);
 
         const actionCell = document.createElement("td");
         const deleteButton = document.createElement("button");
 
         deleteButton.textContent = "Delete";
-        deleteButton.className = "delete-button";
-        deleteButton.dataset.index = i;
+        deleteButton.className = "delete-btn";
+        deleteButton.dataset.id = subscription.id;
 
         actionCell.appendChild(deleteButton);
-
-        row.appendChild(serviceCell);
-        row.appendChild(providerCell);
-        row.appendChild(subscriberCell);
-        row.appendChild(dateCell);
-        row.appendChild(categoryCell);
-        row.appendChild(statusCell);
         row.appendChild(actionCell);
 
         subscriptionList.appendChild(row);
     }
-
-    updateSummary();
 }
 
-form.addEventListener("submit", function(event) {
-    event.preventDefault();
+const subscriptionForm = document.getElementById("subscriptionForm");
 
-    const newSubscription = {
-        service: document.getElementById("service").value.trim(),
-        provider: document.getElementById("provider").value.trim(),
-        subscriber: document.getElementById("subscriber").value.trim(),
-        renewalDate: document.getElementById("renewalDate").value,
-        category: document.getElementById("category").value
-    };
+if (subscriptionForm) {
+    subscriptionForm.addEventListener("submit", function(event) {
+        event.preventDefault();
 
-    if (!newSubscription.service || !newSubscription.provider ||
-        !newSubscription.subscriber || !newSubscription.renewalDate ||
-        !newSubscription.category) {
-        alert("Please complete all fields.");
-        return;
-    }
+        const newSubscription = {
+            id: Date.now(),
+            service: document.getElementById("service").value.trim(),
+            provider: document.getElementById("provider").value.trim(),
+            subscriber: document.getElementById("subscriber").value.trim(),
+            renewalDate: document.getElementById("renewalDate").value,
+            category: document.getElementById("category").value
+        };
 
-    subscriptions.push(newSubscription);
-
-    saveSubscriptions();
-    displaySubscriptions();
-
-    form.reset();
-});
-
-subscriptionList.addEventListener("click", function(event) {
-    if (event.target.classList.contains("delete-button")) {
-        const index = Number(event.target.dataset.index);
-
-        subscriptions.splice(index, 1);
+        subscriptions.push(newSubscription);
 
         saveSubscriptions();
-        displaySubscriptions();
-    }
-});
+
+        alert("Subscription added successfully!");
+
+        window.location.href = "expenses.html";
+    });
+}
+
+const subscriptionList = document.getElementById("subscriptionList");
+
+if (subscriptionList) {
+    subscriptionList.addEventListener("click", function(event) {
+        if (event.target.classList.contains("delete-btn")) {
+            const id = Number(event.target.dataset.id);
+
+            subscriptions = subscriptions.filter(function(subscription) {
+                return subscription.id !== id;
+            });
+
+            saveSubscriptions();
+            displaySubscriptions();
+        }
+    });
+}
 
 displaySubscriptions();
+updateSummary();
+

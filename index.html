@@ -4,95 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subscription Tracker - Asja Lleshi</title>
+    <title>Subscription Tracker - Home</title>
     <link rel="stylesheet" href="styles.css">
     <script src="app.js" defer></script>
 </head>
 <body>
-
     <header>
-        <div>
-            <h1>Subscription Tracker</h1>
-            <p>Manage your subscriptions easily</p>
-        </div>
-        <h3>Asja Lleshi</h3>
+        <h1>Subscription Tracker</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="add.html">Add</a>
+            <a href="expenses.html">Expenses</a>
+        </nav>
     </header>
 
     <main>
+        <section class="welcome">
+            <h2>Welcome to Subscription Tracker</h2>
+            <p>Manage your subscriptions and keep track of your expenses.</p>
+            <a class="main-button" href="add.html">Add Subscription</a>
+            <a class="main-button" href="expenses.html">View Expenses</a>
+        </section>
+
         <section class="summary">
-            <h2>Overview</h2>
-            <div class="cards">
-                <div class="card">
-                    <p>Total Subscriptions</p>
-                    <h2 id="totalCount">0</h2>
-                </div>
-
-                <div class="card expired-card">
-                    <p>Expired Subscriptions</p>
-                    <h2 id="expiredCount">0</h2>
-                </div>
+            <div class="summary-card">
+                <h3>Total Subscriptions</h3>
+                <p id="totalCount">0</p>
             </div>
-        </section>
-
-        <section class="form-section">
-            <h2>Add New Subscription</h2>
-
-            <form id="subscriptionForm">
-                <label>Service</label>
-                <input type="text" id="service" placeholder="Netflix" required>
-
-                <label>Provider</label>
-                <input type="text" id="provider" placeholder="Netflix Inc." required>
-
-                <label>Subscriber</label>
-                <input type="text" id="subscriber" placeholder="Asja Lleshi" required>
-
-                <label>Renewal Date</label>
-                <input type="date" id="renewalDate" required>
-
-                <label>Category</label>
-                <select id="category" required>
-                    <option value="">Choose category</option>
-                    <option>Entertainment</option>
-                    <option>Music</option>
-                    <option>Software</option>
-                    <option>Education</option>
-                    <option>Shopping</option>
-                    <option>Other</option>
-                </select>
-
-                <button type="submit">Add Subscription</button>
-            </form>
-        </section>
-
-        <section class="table-section">
-            <h2>My Subscriptions</h2>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Service</th>
-                        <th>Provider</th>
-                        <th>Subscriber</th>
-                        <th>Renewal Date</th>
-                        <th>Category</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-
-                <tbody id="subscriptionList">
-                    <tr>
-                        <td colspan="7">No subscriptions yet.</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="summary-card">
+                <h3>Expired Subscriptions</h3>
+                <p id="expiredCount">0</p>
+            </div>
         </section>
     </main>
 
     <footer>
-        Subscription Tracker | Created by Asja Lleshi
+        <p>Subscription Tracker - 2026</p>
     </footer>
-
 </body>
 </html>
